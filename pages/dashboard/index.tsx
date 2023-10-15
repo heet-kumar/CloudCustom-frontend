@@ -35,97 +35,102 @@ const Dashboard:React.FC = () => {
 
     const [data,setdata] = useState<Array<ServiceData>>([
         {
-            "id": 20,
+            "id": 6,
             "name": "Compute Services",
             "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
         },
         {  
-            "id": 19,
+            "id": 5,
             "name": "Networking",
             "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
         },
         {
-            "id": 18,
+            "id": 4,
             "name": "Storage Service",
             "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
         },
         {
-            "id": 17,
+            "id": 3,
             "name": "Big Data",
             "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
         },
         {
-            "id": 16,
+            "id": 2,
             "name": "Security and Identity Managment",
             "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
         },
         {
-            "id": 15,
+            "id": 1,
             "name": "Operation Tools",
             "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
         },
     ])
 
-    useEffect( () => {
-        const data = localStorage.getItem('Access');
-        if(data!=='true') router.push("/")
-    },[])
+    // useEffect( () => {
+    //     const data = localStorage.getItem('Access');
+    //     if(data!=='true') router.push("/")
+    // },[])
 
-    useEffect( () => {
-        const getData = async() => {
-            console.log("Inside UseEffect");
-            await axios.get("http://localhost:5000/services/all")
-            .then( res => {
-                console.log(res.data.msg);
-                setdata(res.data.msg)
-            })
-            .catch( err => {
-                console.log(err);
-                alert(err.response.data.msg);
-            })
-        }
-        getData();
-    },[state])
+    // useEffect( () => {
+    //     const getData = async() => {
+    //         console.log("Inside UseEffect");
+    //         await axios.get("http://localhost:5000/services/all")
+    //         .then( res => {
+    //             console.log(res.data.msg);
+    //             setdata(res.data.msg)
+    //         })
+    //         .catch( err => {
+    //             console.log(err);
+    //             alert(err.response.data.msg);
+    //         })
+    //     }
+    //     getData();
+    // },[state])
 
     const handleCreate = async () => {
-        await axios.post("http://localhost:5000/services/create",{
-            name:service.toLowerCase(),
-            dsc:desc
-        }).then( async(res) => {
-            console.log(res);
-            setState(!state);
-        })
-        .catch( err => {
-            console.log(err);
-            alert(err.response.data.msg);
-        })
+        const len = data.length;
+        const newData = [...data,{id:len+1,name:service,desc}];
+        setdata(newData);
+
+        // await axios.post("http://localhost:5000/services/create",{
+        //     name:service.toLowerCase(),
+        //     dsc:desc
+        // }).then( async(res) => {
+        //     console.log(res);
+        //     setState(!state);
+        // })
+        // .catch( err => {
+        //     console.log(err);
+        //     alert(err.response.data.msg);
+        // })
         
     }
 
     const deleteCard = async(id:number) => {
-        // const newdata = data.filter( p => p.name !== cname);
-        // setdata(newdata);
-        await axios.delete(`http://localhost:5000/services/delete/${id}`)
-        .then( async(res) => {
-            console.log(res);
-            setState(!state);
-        })
-        .catch( err => {
-            console.log(err)
-            alert(err.response.data.msg);
-        })
+        const newdata = data.filter( p => p.id !== id);
+        setdata(newdata);
+
+        // await axios.delete(`http://localhost:5000/services/delete/${id}`)
+        // .then( async(res) => {
+        //     console.log(res);
+        //     setState(!state);
+        // })
+        // .catch( err => {
+        //     console.log(err)
+        //     alert(err.response.data.msg);
+        // })
     }
 
     const handleUpdate = async(id:number,name:string,dsc:string) => {
-        await axios.put("http://localhost:5000/services/edit",{id,name,dsc})
-        .then( res => {
-            // console.log(res.data.msg);
-            setState(!state);
-        })
-        .catch( err => {
-            console.log(err);
-            alert(err.response.data.msg);
-        })
+        // await axios.put("http://localhost:5000/services/edit",{id,name,dsc})
+        // .then( res => {
+        //     // console.log(res.data.msg);
+        //     setState(!state);
+        // })
+        // .catch( err => {
+        //     console.log(err);
+        //     alert(err.response.data.msg);
+        // })
     }
 
     const [editData,setEditData] = useState<ServiceData>({
@@ -135,10 +140,10 @@ const Dashboard:React.FC = () => {
     })
 
     const handleEdit = (id:number) => {
-        const newData:ServiceData[] = data.filter( p => p.id===id);
-        setEditData(newData[0]);
-        setdesc(newData[0].desc);
-        setservice(newData[0].name);
+        // const newData:ServiceData[] = data.filter( p => p.id===id);
+        // setEditData(newData[0]);
+        // setdesc(newData[0].desc);
+        // setservice(newData[0].name);
     }
 
     return(

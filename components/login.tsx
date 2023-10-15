@@ -25,23 +25,23 @@ const Login: React.FC = () => {
         setpassword(e.currentTarget.value);
     }
 
-    const authenticate = async() => {
-        if(password!=="" && email!==""){
-            await axios.post("http://localhost:5000/login",{email,password})
-            .then( res => {
-                console.log(res.data.msg);
-                localStorage.setItem('Access','true');
-                router.push("/dashboard");
-            })
-            .catch( err => {
-                console.log("Error :",err);
-                setmsg(err.response.data.msg);
-            })
-        }
-        else{
-            setmsg("fields are empty")
-        }
-    }
+    // const authenticate = async() => {
+    //     if(password!=="" && email!==""){
+    //         await axios.post("http://localhost:5000/login",{email,password})
+    //         .then( res => {
+    //             console.log(res.data.msg);
+    //             localStorage.setItem('Access','true');
+    //             router.push("/dashboard");
+    //         })
+    //         .catch( err => {
+    //             console.log("Error :",err);
+    //             setmsg(err.response.data.msg);
+    //         })
+    //     }
+    //     else{
+    //         setmsg("fields are empty")
+    //     }
+    // }
 
     return(
         <div className="d-flex .justify-content-between">
@@ -75,7 +75,7 @@ const Login: React.FC = () => {
                     <button 
                         type="button" 
                         className="btn btn-outline-dark"
-                        onClick={authenticate}
+                        // onClick={authenticate}
                     >
                         Login
                     </button>
