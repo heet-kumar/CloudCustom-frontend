@@ -1,17 +1,15 @@
 
 import { useEffect, useState } from 'react';
 import styles from '../../styles/dashboard.module.css' 
-import { FcServices } from 'react-icons/fc'
 import { MdCreate } from 'react-icons/md'
-import { AiFillDelete, AiOutlineDelete } from 'react-icons/ai';
-import { FaEdit } from 'react-icons/fa';
-import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import ServiceCard from '@/components/serviceCard';
 
 
 interface ServiceData {
-    sid: number,
+    id: number,
     name: string,
     desc: string
 }
@@ -32,39 +30,40 @@ const Dashboard:React.FC = () => {
         setdesc(e.currentTarget.value);
     }
     
+    const data = useSelector((state) => state.service.user_services);
 
-    const [data,setdata] = useState<Array<ServiceData>>([
-        {
-            "id": 6,
-            "name": "Compute Services",
-            "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-        },
-        {  
-            "id": 5,
-            "name": "Networking",
-            "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-        },
-        {
-            "id": 4,
-            "name": "Storage Service",
-            "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-        },
-        {
-            "id": 3,
-            "name": "Big Data",
-            "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-        },
-        {
-            "id": 2,
-            "name": "Security and Identity Managment",
-            "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-        },
-        {
-            "id": 1,
-            "name": "Operation Tools",
-            "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-        },
-    ])
+    // const [data,setdata] = useState<Array<ServiceData>>([
+    //     {
+    //         "id": 6,
+    //         "name": "Compute Services",
+    //         "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    //     },
+    //     {  
+    //         "id": 5,
+    //         "name": "Networking",
+    //         "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    //     },
+    //     {
+    //         "id": 4,
+    //         "name": "Storage Service",
+    //         "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    //     },
+    //     {
+    //         "id": 3,
+    //         "name": "Big Data",
+    //         "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    //     },
+    //     {
+    //         "id": 2,
+    //         "name": "Security and Identity Managment",
+    //         "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    //     },
+    //     {
+    //         "id": 1,
+    //         "name": "Operation Tools",
+    //         "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    //     },
+    // ])
 
     // useEffect( () => {
     //     const data = localStorage.getItem('Access');
@@ -262,25 +261,7 @@ const Dashboard:React.FC = () => {
 
             <div className={styles.dashboard_container}>
                 {
-                    data.map((p:ServiceData) => {
-                        return(
-                            <div key={p.name} className={styles.card}>
-                                <div className='card'>
-                                    <div className="card-header d-flex justify-content-between">
-                                        <button className='btn' data-bs-toggle="modal" data-bs-target="#tryModal" onClick={() => handleEdit(p.id)} ><FaEdit size={'20'} /></button>
-                                        <button className='btn' onClick={() => deleteCard(p.id)}><AiFillDelete size={'25'} /></button>
-                                    </div>
-                                    <Link href={`/dashboard/${p.name.toLowerCase()}`} className='text-decoration-none text-black'>
-                                        <div className="card-body rounded shadow-lg p-4 d-flex flex-column align-items-center text-center">
-                                            <div className={styles.logo}><FcServices size={'80'}/></div>
-                                            <h5 className="card-title fs-3 mt-4 text-capitalize">{p.name}</h5>
-                                            <p className="fw-500 mt-3">{p.desc}</p>
-                                        </div>
-                                    </Link>
-                                </div>
-                            </div>
-                        );
-                    })
+                    data.map((p:ServiceData) => <ServiceCard key={p.name} id={p.id} name={p.name} desc={p.desc} />)
                 }
             </div>
         </div>
