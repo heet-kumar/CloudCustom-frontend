@@ -174,6 +174,7 @@ const Dashboard:React.FC = () => {
                                 id="floatingService" 
                                 onChange={handleService}
                                 placeholder="Enter Service Name" 
+                                value={service}
                             />
                             <label htmlFor="floatingService">Service Name</label>
                         </div>
@@ -183,7 +184,8 @@ const Dashboard:React.FC = () => {
                                 className="form-control" 
                                 id="floatingDesc" 
                                 onChange={handleDesc}
-                                placeholder="Short Description" 
+                                placeholder="Short Description"
+                                value=""
                             />
                             <label htmlFor="floatingDesc">Short Description</label>
                         </div>
