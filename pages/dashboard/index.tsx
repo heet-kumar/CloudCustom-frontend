@@ -207,7 +207,7 @@ const Dashboard:React.FC = () => {
 
             {/* Edit Modal */}
 
-            <div className="modal fade" id="tryModal" aria-hidden="true">
+            {/* <div className="modal fade" id="tryModal" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                     <div className="modal-header">
@@ -257,7 +257,7 @@ const Dashboard:React.FC = () => {
                     </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             {/* Basic container */}
 
