@@ -7,6 +7,8 @@ import Header from '@/components/header';
 import Sidebar from '@/components/sidebar';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import store from '../store/index'
+import { Provider } from 'react-redux';
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -26,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
     
-      <div >
+      <Provider store={store}>
         <Header />
         <div className='d-flex pt-3'>
           {
@@ -34,7 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
           }
           <Component {...pageProps} />
         </div>
-      </div>
+      </Provider>
     </>
   );
 }

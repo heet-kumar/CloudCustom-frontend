@@ -38,22 +38,22 @@ const Create: React.FC = () => {
         setcpassword(e.currentTarget.value);
     }
 
-    const authenticate = async() => {
-        if(password === cpassword && name!=="" && email!==""){
-            await axios.post("http://localhost:5000/signup",{name,email,password})
-            .then( res => {
-                console.log(res.data.msg);
-                router.push("/");
-            })
-            .catch( err => {
-                console.log("Error :",err);
-                setmsg(err.response.data.msg);
-            })
-        }
-        else{
-            setmsg("Password dosen't match or fields are empty")
-        }
-    }
+    // const authenticate = async() => {
+    //     if(password === cpassword && name!=="" && email!==""){
+    //         await axios.post("http://localhost:5000/signup",{name,email,password})
+    //         .then( res => {
+    //             console.log(res.data.msg);
+    //             router.push("/");
+    //         })
+    //         .catch( err => {
+    //             console.log("Error :",err);
+    //             setmsg(err.response.data.msg);
+    //         })
+    //     }
+    //     else{
+    //         setmsg("Password dosen't match or fields are empty")
+    //     }
+    // }
 
 
     return(
@@ -111,7 +111,7 @@ const Create: React.FC = () => {
                     <button 
                         type="button" 
                         className="btn btn-outline-dark"
-                        onClick={authenticate}
+                        // onClick={authenticate}
                     >
                         SignUp
                     </button>
