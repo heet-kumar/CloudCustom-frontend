@@ -1,4 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+
+interface serviceData {
+    id: number,
+    name: string,
+    desc: string
+}
 
 export const serviceSlice = createSlice({
     name: "service",
@@ -9,10 +15,35 @@ export const serviceSlice = createSlice({
                 "name": "Compute Services",
                 "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
             },
+            {  
+                "id": 5,
+                "name": "Networking",
+                "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+            },
+            {
+                "id": 4,
+                "name": "Storage Service",
+                "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+            },
+            {
+                "id": 3,
+                "name": "Big Data",
+                "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+            },
+            {
+                "id": 2,
+                "name": "Security and Identity Managment",
+                "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+            },
+            {
+                "id": 1,
+                "name": "Operation Tools",
+                "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+            }
         ]
     },
     reducers: {
-        update: (state, action) => {
+        update: (state, action:PayloadAction<serviceData>) => {
 
         }
     }

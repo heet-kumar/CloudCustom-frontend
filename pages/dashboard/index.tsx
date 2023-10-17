@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import ServiceCard from '@/components/serviceCard';
 
 
-interface ServiceData {
+interface serviceData {
     id: number,
     name: string,
     desc: string
@@ -32,38 +32,6 @@ const Dashboard:React.FC = () => {
     
     const data = useSelector((state) => state.service.user_services);
 
-    // const [data,setdata] = useState<Array<ServiceData>>([
-    //     {
-    //         "id": 6,
-    //         "name": "Compute Services",
-    //         "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    //     },
-    //     {  
-    //         "id": 5,
-    //         "name": "Networking",
-    //         "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    //     },
-    //     {
-    //         "id": 4,
-    //         "name": "Storage Service",
-    //         "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    //     },
-    //     {
-    //         "id": 3,
-    //         "name": "Big Data",
-    //         "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    //     },
-    //     {
-    //         "id": 2,
-    //         "name": "Security and Identity Managment",
-    //         "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    //     },
-    //     {
-    //         "id": 1,
-    //         "name": "Operation Tools",
-    //         "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    //     },
-    // ])
 
     // useEffect( () => {
     //     const data = localStorage.getItem('Access');
@@ -87,9 +55,7 @@ const Dashboard:React.FC = () => {
     // },[state])
 
     const handleCreate = async () => {
-        const len = data.length;
-        const newData = [...data,{id:len+1,name:service,desc}];
-        setdata(newData);
+        
 
         // await axios.post("http://localhost:5000/services/create",{
         //     name:service.toLowerCase(),
@@ -132,14 +98,14 @@ const Dashboard:React.FC = () => {
         // })
     }
 
-    const [editData,setEditData] = useState<ServiceData>({
+    const [editData,setEditData] = useState<serviceData>({
         sid: 40,
         name: "Dummy Data",
         desc: "Dummy Data Description"
     })
 
     const handleEdit = (id:number) => {
-        // const newData:ServiceData[] = data.filter( p => p.id===id);
+        // const newData:serviceData[] = data.filter( p => p.id===id);
         // setEditData(newData[0]);
         // setdesc(newData[0].desc);
         // setservice(newData[0].name);
@@ -263,7 +229,7 @@ const Dashboard:React.FC = () => {
 
             <div className={styles.dashboard_container}>
                 {
-                    data.map((p:ServiceData) => <ServiceCard key={p.name} id={p.id} name={p.name} desc={p.desc} />)
+                    data.map((p:serviceData) => <ServiceCard key={p.name} id={p.id} name={p.name} desc={p.desc} />)
                 }
             </div>
         </div>
