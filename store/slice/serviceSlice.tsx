@@ -40,14 +40,17 @@ export const serviceSlice = createSlice({
                 "name": "Operation Tools",
                 "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
             }
-        ]
+        ],
+        service_count: 6
     },
     reducers: {
-        update: (state, action:PayloadAction<serviceData>) => {
-
+        add: (state, action:PayloadAction<serviceData>) => {
+            console.log("From Redux Store : ",action.payload);
+            state.service_count += 1;
+            state.user_services.push({id:state.service_count,...action.payload});
         }
     }
 });
 
-export const { update } = serviceSlice.actions;
+export const { add } = serviceSlice.actions;
 export default serviceSlice.reducer;
