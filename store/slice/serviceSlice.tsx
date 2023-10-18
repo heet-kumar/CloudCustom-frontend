@@ -48,9 +48,14 @@ export const serviceSlice = createSlice({
             console.log("From Redux Store : ",action.payload);
             state.service_count += 1;
             state.user_services.push({id:state.service_count,...action.payload});
+        },
+
+        remove: (state,action:PayloadAction<number>) => {
+            console.log("From Delete Redux Store : ",action.payload);
+            state.user_services = state.user_services.filter( p => p.id !== action.payload);
         }
     }
 });
 
-export const { add } = serviceSlice.actions;
+export const { add, remove } = serviceSlice.actions;
 export default serviceSlice.reducer;

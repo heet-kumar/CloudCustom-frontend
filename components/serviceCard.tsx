@@ -4,6 +4,8 @@ import { AiFillDelete } from 'react-icons/ai';
 import { FcServices } from 'react-icons/fc'
 import Link from 'next/link';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { remove } from '../store/slice/serviceSlice'
 
 interface cardData {
     id: number,
@@ -16,12 +18,17 @@ const ServiceCard: React.FC<cardData> = (p) => {
     // console.log("Card Data : ",p);
     const [service, setservice] = useState<string>(p.name);
     const [desc, setdesc] = useState<string>(p.desc);
+    const dispatch = useDispatch();
 
     const handleEdit = () => {
         // console.log("Test Data : ", p);
         // setservice(p.name);
         // setdesc(p.desc);
         console.log({ service, desc });
+    }
+
+    const handleDelete = (id:number) => {
+        dispatch(remove(id));
     }
 
     return (
@@ -89,7 +96,7 @@ const ServiceCard: React.FC<cardData> = (p) => {
                         >
                             <FaEdit size={'20'} />
                         </button>
-                        <button className='btn' onClick={() => deleteCard(p.id)}><AiFillDelete size={'25'} /></button>
+                        <button className='btn' onClick={() => handleDelete(p.id)}><AiFillDelete size={'25'} /></button>
                     </div>
                     <Link href={`/dashboard/${p.name.toLowerCase()}`} className='text-decoration-none text-black'>
                         <div className="card-body rounded shadow-lg p-4 d-flex flex-column align-items-center text-center">
