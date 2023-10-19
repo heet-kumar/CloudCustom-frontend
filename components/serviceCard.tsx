@@ -21,9 +21,6 @@ const ServiceCard: React.FC<cardData> = (p) => {
     const dispatch = useDispatch();
 
     const handleEdit = () => {
-        // console.log("Test Data : ", p);
-        // setservice(p.name);
-        // setdesc(p.desc);
         console.log({ service, desc });
     }
 
