@@ -27,7 +27,8 @@ const ServiceCard: React.FC<cardData> = (p) => {
         console.log({ service, desc });
     }
 
-    const handleDelete = (id:number) => {
+    const handleDelete = (e:React.MouseEvent<HTMLButtonElement>,id:number) => {
+        e.preventDefault();
         dispatch(remove(id));
     }
 
@@ -96,7 +97,7 @@ const ServiceCard: React.FC<cardData> = (p) => {
                         >
                             <FaEdit size={'20'} />
                         </button>
-                        <button className='btn' onClick={() => handleDelete(p.id)}><AiFillDelete size={'25'} /></button>
+                        <button className='btn' onClick={(e) => handleDelete(e,p.id)}><AiFillDelete size={'25'} /></button>
                     </div>
                     <Link href={`/dashboard/${p.name.toLowerCase()}`} className='text-decoration-none text-black'>
                         <div className="card-body rounded shadow-lg p-4 d-flex flex-column align-items-center text-center">
