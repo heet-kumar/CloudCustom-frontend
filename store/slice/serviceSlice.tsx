@@ -1,10 +1,15 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface serviceData {
     id: number,
     name: string,
     desc: string
 }
+
+export const createService = createAsyncThunk("service/create", async (service) => {
+    const res = await axios.post("api link",service);
+    return res.data;
+})
 
 export const serviceSlice = createSlice({
     name: "service",
