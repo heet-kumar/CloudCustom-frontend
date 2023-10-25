@@ -9,6 +9,9 @@ import { AiFillDelete } from "react-icons/ai";
 import Link from "next/link";
 import axios from "axios";
 
+// component
+import SubServiceCard from '../../components/subServiceCard';
+
 
 const Service:React.FC = () => {
 
@@ -24,26 +27,26 @@ const Service:React.FC = () => {
         }
     )
 
-    useEffect( () => {
-        const data = localStorage.getItem('Access');
-        if(data!=='true') route.push("/")
-    },[])
+    // useEffect( () => {
+    //     const data = localStorage.getItem('Access');
+    //     if(data!=='true') route.push("/")
+    // },[])
 
-    useEffect(() => {
-        console.log("route -> : ",root)
-        const getData = async() => {
-            await axios.get(`http://localhost:5000/services/name/${root.service}`)
-            .then( async(res) => {
-                console.log("Testing particular service : ",res.data.msg);
-                if(res.data.msg!=='Not Found') setServiceData(res.data.msg[0])
-            })
-            .catch( err => {
-                console.log(err);
-                alert(err.response.data.msg);
-            })  
-        }
-        if(root.service!==undefined) getData();
-    },[root.service])
+    // useEffect(() => {
+    //     console.log("route -> : ",root)
+    //     const getData = async() => {
+    //         await axios.get(`http://localhost:5000/services/name/${root.service}`)
+    //         .then( async(res) => {
+    //             console.log("Testing particular service : ",res.data.msg);
+    //             if(res.data.msg!=='Not Found') setServiceData(res.data.msg[0])
+    //         })
+    //         .catch( err => {
+    //             console.log(err);
+    //             alert(err.response.data.msg);
+    //         })  
+    //     }
+    //     if(root.service!==undefined) getData();
+    // },[root.service])
 
     const fieldList:string[] = [
         "Region",
@@ -145,35 +148,35 @@ const Service:React.FC = () => {
     const handleCreate = async() => {
         // setSubServices([...subServices,{name: serviceName,desc:desc,fields: field}])
         
-        await axios.post("http://localhost:5000/subservices/create",{
-            sid: serviceData.sid,
-            name: serviceName,
-            desc: desc,
-            columns: JSON.stringify(field)
-        }).then( async(res) => {
-            console.log(res);
-            setState(!state);
-        })
-        .catch( err => {
-            console.log(err);
-            alert(err.response.data.msg);
-        })
+        // await axios.post("http://localhost:5000/subservices/create",{
+        //     sid: serviceData.sid,
+        //     name: serviceName,
+        //     desc: desc,
+        //     columns: JSON.stringify(field)
+        // }).then( async(res) => {
+        //     console.log(res);
+        //     setState(!state);
+        // })
+        // .catch( err => {
+        //     console.log(err);
+        //     alert(err.response.data.msg);
+        // })
     }
 
     const deleteCard = async(id:number) => {
         // const newdata = subServices.filter( p => p.name !== cname);
         // setSubServices(newdata);
 
-        await axios.post("http://localhost:5000/subservices/delete",{
-            id
-        }).then( async(res) => {
-            console.log(res);
-            setState(!state);
-        })
-        .catch( err => {
-            console.log(err);
-            alert(err.response.data.msg);
-        })
+        // await axios.post("http://localhost:5000/subservices/delete",{
+        //     id
+        // }).then( async(res) => {
+        //     console.log(res);
+        //     setState(!state);
+        // })
+        // .catch( err => {
+        //     console.log(err);
+        //     alert(err.response.data.msg);
+        // })
 
     }
 
@@ -260,37 +263,7 @@ const Service:React.FC = () => {
 
                 <div className="w-100 p-4 mt-4 shadow rounded border">
                     {
-                        subServices.map( (p) => {
-                            // if(p.sid===serviceData.sid)
-                            return(
-                                <div key={p.id} className="shadow card w-100 mb-4 ">
-                                    <Link href={`/service/${p.name.toLowerCase()}`} className="text-decoration-none text-black">
-                                        <div className="card-body d-flex">
-                                            <div className="d-flex align-items-center"><HiChip color={'#dc3545'} size={'50'}/></div>
-                                            <div className="card-body">
-                                                <h5 className="card-title fs-3 mx-4 text-capatalize">{p.name}</h5>
-                                                <ul className="d-flex flex-wrap">
-                                                    {
-                                                        // p.columns
-                                                        // JSON.parse(p.columns).map( (d:string) => <li key={d} className="mx-4">{d}</li>);
-                                                        // console.log("Test : ",p.columns);
-                                                        JSON.parse(p.columns).map( (d:string) => {
-                                                            return(
-                                                                <li key={d} className="mx-4">{d}</li>
-                                                            );
-                                                        })
-                                                    }
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                    <div className="card-footer d-flex justify-content-end">
-                                        <button className='btn' onClick={() => editcard(p.name)}><FaEdit size={'20'} /></button>
-                                        <button className='btn' onClick={() => deleteCard(p.ssid)}><AiFillDelete size={'25'} /></button>
-                                    </div>
-                                </div>
-                            );
-                        })
+                        subServices.map( (p) => {return(<SubServiceCard key={p.id} data={p} />)})
                     }
                 </div>
             </div>
