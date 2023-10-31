@@ -261,7 +261,7 @@ const Service:React.FC = () => {
                     </div>
                 </div>
 
-                <div className="w-100 p-4 mt-4 shadow rounded border">
+                <div className="w-100 p-4 mt-4 d-flex flex-column shadow rounded border">
                     {
                         subServices.map( (p) => {return(<SubServiceCard key={p.id} data={p} />)})
                     }
