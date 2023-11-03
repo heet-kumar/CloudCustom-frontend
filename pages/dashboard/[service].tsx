@@ -16,15 +16,36 @@ import SubServiceCard from '../../components/subServiceCard';
 // fields
 import fields from '../../data/field.json';
 
+//redux
+import { useDispatch,useSelector } from "react-redux";
+import { add } from "@/store/slice/subServiceSlice";
+import { randomInt } from "crypto";
+
+
+interface subServiceData{
+    id: number,
+    sid: number,
+    name: string,
+    dsc: string,
+    columns: string
+}
+
+interface serviceData{
+    id: number,
+    name: string,
+    dsc: string,
+}
+
 
 const Service: React.FC = () => {
 
     const route = useRouter();
     const root = route.query;
     // console.log("Root : ",root.service);
+    const dispatch = useDispatch();
 
 
-    const [serviceData, setServiceData] = useState(
+    const [service, setService] = useState<serviceData>(
         {
             "id": 2,
             "name": "Pub/Sub",
@@ -40,47 +61,19 @@ const Service: React.FC = () => {
 
     const fieldList: string[] = fields;
 
-    const [serviceName, setServiceName] = useState<string>("");
+    const [subServiceName, setSubServiceName] = useState<string>("");
     const [desc, setdesc] = useState<string>("");
     const [field, setfield] = useState<Array<string>>([]);
 
-    const [subServices, setSubServices] = useState<Array<{ id: number, sid: number, name: string, dsc: string, columns: string }>>([
-        {
-            id: 100,
-            sid: 30,
-            name: "Virtual Machine",
-            dsc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            columns: '["Name","Region","Machine Family","CPUs","Memory","Boot Disk Size","OS","Allow traffic"]'
-        },
-        {
-            id: 101,
-            sid: 30,
-            name: "Kubernate Engine",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            columns: '["Name","Region","Machine Family","CPUs","Memory","Boot Disk Size","OS","Allow traffic"]'
-        },
-        {
-            id: 103,
-            sid: 30,
-            name: "Kubernate Engine",
-            desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            columns: '["Name"]'
-        },
-    ])
+    const subServices: Array<subServiceData> = useSelector((state) => state.subService.subServices)
 
-    const handleServiceName = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.currentTarget.value.toLowerCase());
-        setServiceName(e.currentTarget.value.toLowerCase());
-    }
-
-    const handleDescName = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.currentTarget.value);
-        setdesc(e.currentTarget.value);
-    }
 
     const handleCreate = async () => {
         // setSubServices([...subServices,{name: serviceName,desc:desc,fields: field}])
-
+        console.log("Name : ", subServiceName);
+        console.log("Desc : ", desc);
+        console.log("Fields : ", field);
+        dispatch(add({id:Math.floor(Math.random() * Number.MAX_SAFE_INTEGER), sid:service.id, name:subServiceName, dsc:desc, columns:JSON.stringify(field)}));
     }
 
 
@@ -112,17 +105,17 @@ const Service: React.FC = () => {
                                     type="text"
                                     className="form-control"
                                     id="floatingService"
-                                    onChange={handleServiceName}
-                                    placeholder="Enter Service Name"
+                                    onChange={(e) => setSubServiceName(e.target.value.toLowerCase())}
+                                    placeholder="Enter Sub-Service Name"
                                 />
-                                <label htmlFor="floatingService">Service Name</label>
+                                <label htmlFor="floatingService">Sub-Service Name</label>
                             </div>
                             <div className="form-floating mb-3">
                                 <input
                                     type="text"
                                     className="form-control"
                                     id="floatingService"
-                                    onChange={handleDescName}
+                                    onChange={(e) => setdesc(e.target.value)}
                                     placeholder="Enter Service Name"
                                 />
                                 <label htmlFor="floatingService">Description</label>
@@ -157,7 +150,7 @@ const Service: React.FC = () => {
                 <div className="shadow card w-100 mb-3">
                     <div className="card-body">
                         <h3 className="text-capitalize text-light-emphasis card-title fs-1 fw-bolder mb-3">{root.service}</h3>
-                        <p className="card-text fs-5 fw-500">{serviceData?.dsc}</p>
+                        <p className="card-text fs-5 fw-500">{service?.dsc}</p>
                     </div>
                 </div>
 
