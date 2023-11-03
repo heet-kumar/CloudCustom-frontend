@@ -1,5 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface newSubService {
+    id: number,
+    sid: number,
+    name: string,
+    dsc: string,
+    columns: string,
+}
+
 const subServiceSlice = createSlice({
     name: "subService",
     initialState: {
@@ -28,10 +36,12 @@ const subServiceSlice = createSlice({
         ],
     },
     reducers: {
-        
+        add:(state,action:PayloadAction<newSubService>) => {
+            console.log("New Sub Service : ",action.payload);
+        }
     }
 });
 
 
-
+export const {add} = subServiceSlice.actions;
 export default subServiceSlice.reducer;
