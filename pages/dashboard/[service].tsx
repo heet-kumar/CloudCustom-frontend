@@ -9,17 +9,22 @@ import { AiFillDelete } from "react-icons/ai";
 import Link from "next/link";
 import axios from "axios";
 
+
 // component
 import SubServiceCard from '../../components/subServiceCard';
 
+// fields
+import fields from '../../data/field.json';
 
-const Service:React.FC = () => {
+
+const Service: React.FC = () => {
 
     const route = useRouter();
     const root = route.query;
     // console.log("Root : ",root.service);
 
-    const [serviceData,setServiceData] = useState(
+
+    const [serviceData, setServiceData] = useState(
         {
             "id": 2,
             "name": "Pub/Sub",
@@ -32,168 +37,63 @@ const Service:React.FC = () => {
     //     if(data!=='true') route.push("/")
     // },[])
 
-    // useEffect(() => {
-    //     console.log("route -> : ",root)
-    //     const getData = async() => {
-    //         await axios.get(`http://localhost:5000/services/name/${root.service}`)
-    //         .then( async(res) => {
-    //             console.log("Testing particular service : ",res.data.msg);
-    //             if(res.data.msg!=='Not Found') setServiceData(res.data.msg[0])
-    //         })
-    //         .catch( err => {
-    //             console.log(err);
-    //             alert(err.response.data.msg);
-    //         })  
-    //     }
-    //     if(root.service!==undefined) getData();
-    // },[root.service])
 
-    const fieldList:string[] = [
-        "Region",
-        "Machine Family",
-        "CPUs",
-        "Boot Disk Size",
-        "Boot Disk OS",
-        "Allow Traffic",
-        "Description",
-        "Subnet Name",
-        "Subnet Description",
-        "Subnet Region",
-        "Subnet IP Address Range",
-        "Private or Public",
-        "Firewall Rules Name",
-        "Firewall Rules Type",
-        "Firewall Rules Filter",
-        "Firewall Rules Protocol Port",
-        "Firewall Rules Action",
-        "Bucket Name",
-        "Encryption",
-        "Storage Class",
-        "Cluster Name",
-        "Cluster Type",
-        "Software Component",
-        "Master Node Machine family",
-        "Master Node CPUs",
-        "Master Node Memory",
-        "Master Node Disk Size",
-        "Master Node Disk Type",
-        "Worker Node Machine Family",
-        "Worker Nodes Number",
-        "Worker Node CPUs",
-        "Worker Node Memory",
-        "Worker Node Disk Size",
-        "Worker Node Disk Type",
-        "IAM Username",
-        "IAM Accountname",
-        "IAM Roles"
-    ]
+    const fieldList: string[] = fields;
 
-    const [state,setState] = useState<boolean>(true)
+    const [serviceName, setServiceName] = useState<string>("");
+    const [desc, setdesc] = useState<string>("");
+    const [field, setfield] = useState<Array<string>>([]);
 
-    const [serviceName,setServiceName] = useState<string>("");
-    const [desc,setdesc] = useState<string>("");
-    const [field,setfield] = useState<Array<string>>([]);
-    
-    const [subServices,setSubServices] = useState<Array<{id:number,sid:number,name: string, dsc:string, columns: string}>>([
+    const [subServices, setSubServices] = useState<Array<{ id: number, sid: number, name: string, dsc: string, columns: string }>>([
         {
             id: 100,
             sid: 30,
             name: "Virtual Machine",
             dsc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            columns : '["Name","Region","Machine Family","CPUs","Memory","Boot Disk Size","OS","Allow traffic"]'
+            columns: '["Name","Region","Machine Family","CPUs","Memory","Boot Disk Size","OS","Allow traffic"]'
         },
         {
             id: 101,
             sid: 30,
             name: "Kubernate Engine",
             desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            columns : '["Name","Region","Machine Family","CPUs","Memory","Boot Disk Size","OS","Allow traffic"]'
+            columns: '["Name","Region","Machine Family","CPUs","Memory","Boot Disk Size","OS","Allow traffic"]'
         },
         {
             id: 103,
             sid: 30,
             name: "Kubernate Engine",
             desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            columns : '["Name"]'
+            columns: '["Name"]'
         },
     ])
 
-    // useEffect(() => {
-    //     const getData = async() => {
-    //         console.log("Inside UseEffect");
-    //         await axios.get("http://localhost:5000/subservices/all")
-    //         .then( res => {
-    //             console.log('data :',res.data.msg);
-    //             console.log("Columns : ",res.data.msg[0].columns);
-    //             setSubServices(res.data.msg);
-    //         })
-    //         .catch( err => {
-    //             console.log(err);
-    //             alert(err.response.data.msg);
-    //         })
-    //     }
-    //     getData();
-    // },[state])
-
-    const handleServiceName = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const handleServiceName = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e.currentTarget.value.toLowerCase());
         setServiceName(e.currentTarget.value.toLowerCase());
     }
 
-    const handleDescName = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const handleDescName = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e.currentTarget.value);
         setdesc(e.currentTarget.value);
     }
 
-    const handleCreate = async() => {
+    const handleCreate = async () => {
         // setSubServices([...subServices,{name: serviceName,desc:desc,fields: field}])
-        
-        // await axios.post("http://localhost:5000/subservices/create",{
-        //     sid: serviceData.sid,
-        //     name: serviceName,
-        //     desc: desc,
-        //     columns: JSON.stringify(field)
-        // }).then( async(res) => {
-        //     console.log(res);
-        //     setState(!state);
-        // })
-        // .catch( err => {
-        //     console.log(err);
-        //     alert(err.response.data.msg);
-        // })
-    }
-
-    const deleteCard = async(id:number) => {
-        // const newdata = subServices.filter( p => p.name !== cname);
-        // setSubServices(newdata);
-
-        // await axios.post("http://localhost:5000/subservices/delete",{
-        //     id
-        // }).then( async(res) => {
-        //     console.log(res);
-        //     setState(!state);
-        // })
-        // .catch( err => {
-        //     console.log(err);
-        //     alert(err.response.data.msg);
-        // })
 
     }
 
-    const editcard = (cname:string) => {
 
-    }
+    return (
 
-    return(
-        
         <div className={style.service}>
 
             {/* Modal */}
 
-            <button 
-                type="button" 
-                className="fw-bolder fs-5 btn btn-primary align-self-end mx-5 my-3" 
-                data-bs-toggle="modal" 
+            <button
+                type="button"
+                className="fw-bolder fs-5 btn btn-primary align-self-end mx-5 my-3"
+                data-bs-toggle="modal"
                 data-bs-target="#SubServiceModal"
             >
                 <MdCreate /> Create Sub-Service
@@ -202,51 +102,51 @@ const Service:React.FC = () => {
             <div className="modal fade" id="SubServiceModal" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
-                    <div className="modal-header">
-                        <h1 className="modal-title fs-5" id="exampleModalLabel">Create New Sub Service</h1>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <div className="form-floating mb-3">
-                            <input 
-                                type="text" 
-                                className="form-control" 
-                                id="floatingService" 
-                                onChange={handleServiceName}
-                                placeholder="Enter Service Name" 
-                            />
-                            <label htmlFor="floatingService">Service Name</label>
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">Create New Sub Service</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div className="form-floating mb-3">
-                            <input 
-                                type="text" 
-                                className="form-control" 
-                                id="floatingService" 
-                                onChange={handleDescName}
-                                placeholder="Enter Service Name" 
+                        <div className="modal-body">
+                            <div className="form-floating mb-3">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="floatingService"
+                                    onChange={handleServiceName}
+                                    placeholder="Enter Service Name"
+                                />
+                                <label htmlFor="floatingService">Service Name</label>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="floatingService"
+                                    onChange={handleDescName}
+                                    placeholder="Enter Service Name"
+                                />
+                                <label htmlFor="floatingService">Description</label>
+                            </div>
+                            <Multiselect
+                                isObject={false}
+                                onKeyPressFn={function noRefCheck() { }}
+                                onRemove={(e) => { setfield(e); console.log(e); }}
+                                onSearch={function noRefCheck() { }}
+                                onSelect={(e) => { setfield(e); console.log("Testing : ", e); console.log("JSON STRING : ", JSON.stringify(e)); }}
+                                options={fieldList}
                             />
-                            <label htmlFor="floatingService">Description</label>
                         </div>
-                        <Multiselect
-                            isObject={false}
-                            onKeyPressFn={function noRefCheck(){}}
-                            onRemove={(e) => {setfield(e); console.log(e);}}
-                            onSearch={function noRefCheck(){}}
-                            onSelect={(e) => {setfield(e); console.log("Testing : ",e); console.log("JSON STRING : ",JSON.stringify(e));}}
-                            options={fieldList}
-                        />
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button 
-                            type="button" 
-                            className="btn btn-primary"
-                            onClick={handleCreate}
-                            data-bs-dismiss="modal"
-                        >
-                            Save
-                        </button>
-                    </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={handleCreate}
+                                data-bs-dismiss="modal"
+                            >
+                                Save
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -263,12 +163,12 @@ const Service:React.FC = () => {
 
                 <div className="w-100 p-4 mt-4 d-flex flex-column shadow rounded border">
                     {
-                        subServices.map( (p) => {return(<SubServiceCard key={p.id} data={p} />)})
+                        subServices.map((p) => { return (<SubServiceCard key={p.id} data={p} />) })
                     }
                 </div>
             </div>
         </div>
-        
+
     );
 }
 
