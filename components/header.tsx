@@ -16,21 +16,21 @@ const Header:React.FC = () => {
     const [data,setdata] = useState<Array<ServiceData>>([]);
     const [searchText,setSearchText] = useState<string>();
 
-    useEffect( () => {
+    // useEffect( () => {
 
-        const getData = async() => {
-            await axios.get("http://localhost:5000/services/all")
-            .then( res => {
-                console.log("Header : ",res.data)
-                setdata(res.data.msg);
-            })
-            .catch( err => {
-                console.log(err);
-            })
-        }
-        if(router.asPath === '/dashboard') getData();
+    //     const getData = async() => {
+    //         await axios.get("http://localhost:5000/services/all")
+    //         .then( res => {
+    //             console.log("Header : ",res.data)
+    //             setdata(res.data.msg);
+    //         })
+    //         .catch( err => {
+    //             console.log(err);
+    //         })
+    //     }
+    //     if(router.asPath === '/dashboard') getData();
 
-    },[])
+    // },[])
 
 
     return(
