@@ -45,26 +45,26 @@ const SubService:React.FC = () => {
         }
     )
 
-    useEffect(() => {
-        const data = localStorage.getItem('Access');
-        if(data!=='true') route.push("/")
-    },[])
+    // useEffect(() => {
+    //     const data = localStorage.getItem('Access');
+    //     if(data!=='true') route.push("/")
+    // },[])
 
-    useEffect(() => {
-        console.log("route -> : ",root)
-        const getData = async() => {
-            await axios.post("http://localhost:5000/subservices/name",{name: root.subservice})
-            .then( async(res) => {
-                console.log("Testing : ",res);
-                if(res.data.length!==0) setSubServiceData(res.data[0])
-            })
-            .catch( err => {
-                console.log(err);
-                alert(err.response.data.msg);
-            })  
-        }
-        if(root.subservice!==undefined) getData();
-    },[root.subservice])
+    // useEffect(() => {
+    //     console.log("route -> : ",root)
+    //     const getData = async() => {
+    //         await axios.post("http://localhost:5000/subservices/name",{name: root.subservice})
+    //         .then( async(res) => {
+    //             console.log("Testing : ",res);
+    //             if(res.data.length!==0) setSubServiceData(res.data[0])
+    //         })
+    //         .catch( err => {
+    //             console.log(err);
+    //             alert(err.response.data.msg);
+    //         })  
+    //     }
+    //     if(root.subservice!==undefined) getData();
+    // },[root.subservice])
 
     const myObj: MyObj = {};
 
@@ -92,7 +92,7 @@ const SubService:React.FC = () => {
             sid: 5,
             ssid: 27,
             name: "Testing Object",
-            params: '[{"Bucket Name":"asia-south-1"},{"Region":"asia-south-1"},{"Private or Public":"private"},{"Encryption":"ssh"},{"Storage Class":"Object type"},{"Bucket Name":"Object type"},{"Region":"Object type"},{"Private or Public":"Object type"},{"Bucket Name":"GCP-Bucket"},{"Bucket Name":"GCP-Bucket"},{"Region":"asia-south-2"},{"Private or Public":"private"},{"Encryption":"ssh"},{"Storage Class":"Object type"}]'
+            params: '[{"Bucket Name":"GCP-Bucket"},{"Region":"asia-south-1"},{"Private or Public":"private"},{"Encryption":"ssh"},{"Storage Class":"Object type"},{"Allow Traffic":"https"}]'
         },
     ])
 
@@ -114,22 +114,22 @@ const SubService:React.FC = () => {
         })
     }
 
-    useEffect( () => {
+    // useEffect( () => {
         
-        const getData = async() => {
-            await axios.get("http://localhost:5000/resources/all")
-            .then( res => {
-                console.log(res.data.msg);
-                setResource(res.data.msg);
-            })
-            .catch( err => {
-                console.log(err);
-                alert(err.response.data.msg);
-            })
-        }
-        getData();
+    //     const getData = async() => {
+    //         await axios.get("http://localhost:5000/resources/all")
+    //         .then( res => {
+    //             console.log(res.data.msg);
+    //             setResource(res.data.msg);
+    //         })
+    //         .catch( err => {
+    //             console.log(err);
+    //             alert(err.response.data.msg);
+    //         })
+    //     }
+    //     getData();
 
-    },[state])
+    // },[state])
 
     const editCard = (id:number) => {
 
