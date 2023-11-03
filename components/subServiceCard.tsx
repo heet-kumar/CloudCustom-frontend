@@ -41,7 +41,7 @@ const SubServiceCard:React.FC<subServiceData> = ({data}) => {
                         </div>
                     </div>
                 </Link>
-                <div className="card-footer border-none d-flex flex-column justify-content-evenly">
+                <div className="card-footer border border-0 d-flex flex-column justify-content-evenly">
                     <button className='btn' onClick={() => editcard(data.name)}><FaEdit size={'20'} /></button>
                     <button className='btn' onClick={() => deleteCard(data.ssid)}><AiFillDelete size={'25'} /></button>
                 </div>
