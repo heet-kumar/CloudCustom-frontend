@@ -11,7 +11,7 @@ interface newSubService {
 const subServiceSlice = createSlice({
     name: "subService",
     initialState: {
-        subService: [
+        subServices: [
             {
                 id: 100,
                 sid: 30,
@@ -37,11 +37,16 @@ const subServiceSlice = createSlice({
     },
     reducers: {
         add:(state,action:PayloadAction<newSubService>) => {
-            console.log("New Sub Service : ",action.payload);
+            console.log("New Sub Service from Slice : ",action.payload);
+            state.subServices = [action.payload,...state.subServices];
+        },
+        remove:(state,action:PayloadAction<number>) => {
+            console.log("Delete id : ",action.payload);
+            state.subServices = state.subServices.filter( (p:newSubService) => p.id !== action.payload )
         }
     }
 });
 
 
-export const {add} = subServiceSlice.actions;
+export const {add,remove} = subServiceSlice.actions;
 export default subServiceSlice.reducer;
