@@ -3,6 +3,8 @@ import styles from '../styles/service.module.css';
 import Link from 'next/link';
 import { FaEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
+import { remove } from '@/store/slice/subServiceSlice';
 
 interface subService {
     id: number,
@@ -18,6 +20,13 @@ interface subServiceData {
 
 const SubServiceCard:React.FC<subServiceData> = ({data}) => {
 
+    const dispatch = useDispatch();
+
+    const deleteCard = (id:number) => {
+        console.log("Delete Card : ",id);
+        dispatch(remove(id));
+    }
+
     return(
         <>
             <div className="shadow card w-100 mb-4 d-flex flex-row justify-content-between ">
@@ -25,7 +34,7 @@ const SubServiceCard:React.FC<subServiceData> = ({data}) => {
                     <div className="card-body d-flex">
                         <div className="d-flex align-items-center"><HiChip color={'#dc3545'} size={'50'}/></div>
                         <div className="card-body">
-                            <h5 className="card-title fs-3 mx-4 text-capatalize">{data.name}</h5>
+                            <h5 className="card-title fs-3 mx-4 text-capitalize">{data.name}</h5>
                             <ul className="d-flex flex-wrap">
                                 {
                                     // data.columns
@@ -43,7 +52,7 @@ const SubServiceCard:React.FC<subServiceData> = ({data}) => {
                 </Link>
                 <div className="card-footer border border-0 d-flex flex-column justify-content-evenly">
                     <button className='btn' onClick={() => editcard(data.name)}><FaEdit size={'20'} /></button>
-                    <button className='btn' onClick={() => deleteCard(data.ssid)}><AiFillDelete size={'25'} /></button>
+                    <button className='btn' onClick={() => deleteCard(data.id)}><AiFillDelete size={'25'} /></button>
                 </div>
             </div>
         </>
